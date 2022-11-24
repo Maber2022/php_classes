@@ -12,9 +12,15 @@ class Person {
  private $mothergrandmom;
  private $mothergranddad;
 
- 
-
- function __construct($name, $lastname, $age, $mother, $father, $fathergrandmom, $fathergranddad, $mothergrandmom, $mothergranddad){
+ function __construct($name,
+                    $lastname,
+                    $age,
+                    $mother = "Unknown",
+                    $father= "Unknown",
+                    $fathergrandmom= "Unknown",
+                    $fathergranddad= "Unknown",
+                    $mothergrandmom= "Unknown",
+                    $mothergranddad= "Unknown"){
    $this->name = $name;
    $this->lastname = $lastname;
    $this->age = $age;
@@ -29,27 +35,41 @@ class Person {
 
 
  function getInfo() {
-    return "
-    <h2> A few words about myself</h2></br><hr>
-    <h3>My name is $this->name</h3></br>
-    <h3>My lastname is $this->lastname</h3></br>
-    <h3>My age is $this->age</h3></br>
-    <h3>My Mom is $this->mother</h3></br>
-    <h3>My Dad is $this->father</h3></br>
-    <h3>My Granny by Dad is $this->fathergrandmom</h3></br>
-    <h3>My Grandpa by Dad is $this->fathergranddad</h3></br>
-    <h3>My Granny by Mom is $this->mothergrandmom</h3></br>
-    <h3>My Grandpa by Mom is $this->mothergranddad</h3></br>
-    ";
-}
-}
+    $baseInfo = "<h2> Несколько слов обо мне:</h2></br><hr>
+    <h3>Меня зовут $this->name</h3></br>
+    <h3>Моя фамилия $this->lastname</h3></br>
+    <h3>Мой возраст $this->age лет</h3></br>";
+    $parentsInfo;
+    if($this->mother !== "Unknown" && $this->father!== "Unknown"){
+            $parentsInfo="<h3>Моя мама $this->mother</h3></br>
+                          <h3>Мой папа $this->father</h3></br>";
+    } else {
+        $parentsInfo="";
+    }
+    $grandParentsInfo;
+    if($this->fathergrandmom !== "Unknown" && $this->fathergranddad!== "Unknown"&&
+        $this->mothergrandmom !== "Unknown" && $this->mothergranddad!== "Unknown"){
+            $grandParentsInfo="<h3>Моя бабушка по отцу $this->fathergrandmom</h3></br>
+            <h3>Мой дедушка по отцу $this->fathergranddad</h3></br>
+            <h3>Моя бабушка по матери $this->mothergrandmom</h3></br>
+            <h3>Мой дедушка по матери $this->mothergranddad</h3></br>";
+    } else {
+        $grandParentsInfo="";
+    }
+    return "$baseInfo $parentsInfo $grandParentsInfo";
+    }
+};
 
-$dasha = new Person("Masha","Petrova",25,"Anna","Petr","Elza","Albert","Bella","David");
+$masha = new Person("Мария","Петрова",25,"Анна Альбертовна","Петр Давидович","Эльза Просфирьевна","Альберт Феоктистович","Белла Потаповна","Давид Иванович");
+$anna = new Person("Анна","Петрова",50,"Эльза Просфирьевна","Альберт Феоктистович");
+$petr = new Person("Петр","Петров",55,"Белла Потаповна","Давид Иванович");
+$elza = new Person("Эльза","Иванова",70);
+$albert = new Person("Альберт","Иванов",73);
+$bella = new Person("Белла","Петрова",71);
+$david = new Person("Давид","Петров",74);
 
 
-
-echo $dasha->getInfo();
-
+echo $masha->getInfo();
 
 
 // class Man{
